@@ -72,47 +72,64 @@
         .phase-tag { font-size: 14px; color: var(--accent-gold); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; display: block; }
 
         /* --- CONTENT AREA --- */
-        .content { padding: 60px; display: flex; flex-direction: column; position: relative; }
+        .content { padding: 50px 60px; display: flex; flex-direction: column; position: relative; overflow-y: auto; }
         .logo-watermark { position: absolute; top: 40px; right: 120px; width: 80px; opacity: 0.8; }
         .slide-num { position: absolute; top: 40px; right: 40px; font-weight: 800; color: var(--border-color); font-size: 48px; }
 
         h1 { font-size: 56px; font-weight: 700; color: var(--accent-primary); line-height: 1.1; margin-bottom: 10px; }
-        h2 { font-size: 32px; font-weight: 700; margin-bottom: 24px; color: var(--accent-primary); display: flex; align-items: center; gap: 15px; }
+        h2 { font-size: 32px; font-weight: 700; margin-bottom: 20px; color: var(--accent-primary); display: flex; align-items: center; gap: 15px; }
         h2 i { color: var(--accent-gold); font-size: 28px; }
         
-        .objective-box { background: #f1f5f9; padding: 25px; border-radius: 8px; border-left: 4px solid var(--accent-gold); margin-bottom: 30px; }
+        .objective-box { background: #f1f5f9; padding: 25px; border-radius: 8px; border-left: 4px solid var(--accent-gold); margin-bottom: 25px; }
         
-        .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .task-item { border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; }
-        .task-item h4 { font-size: 18px; margin-bottom: 10px; color: var(--accent-primary); display: flex; align-items: center; gap: 8px; }
-        .task-item ul { padding-left: 20px; font-size: 15px; color: var(--text-muted); }
-        .task-item li { margin-bottom: 5px; }
+        .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .task-item { border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; background: #fff; }
+        .task-item h4 { font-size: 16px; margin-bottom: 8px; color: var(--accent-primary); display: flex; align-items: center; gap: 8px; }
+        .task-item ul { padding-left: 15px; font-size: 14px; color: var(--text-muted); }
+        .task-item li { margin-bottom: 4px; }
 
-        .weight-badge { display: inline-block; background: var(--accent-primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-left: auto; }
+        .weight-badge { display: inline-block; background: var(--accent-primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-left: auto; }
 
-        /* --- DOCK --- */
+        /* --- DOCK & NAV --- */
         .nav-dots { position: fixed; right: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 100; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent-primary); transition: 0.3s; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent-primary); transition: 0.3s; cursor: pointer; }
         .dot.active { background: var(--accent-gold); border-color: var(--accent-gold); transform: scale(1.3); }
 
+        .nav-arrows { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 10px; z-index: 101; }
+        .nav-btn { 
+            width: 50px; height: 50px; border-radius: 50%; 
+            background: var(--accent-primary); color: white; border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .nav-btn:hover { background: var(--accent-gold); transform: translateY(-2px); }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
         /* --- SEARCH MOCKUP --- */
-        .search-mockup { background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 15px 25px; display: flex; align-items: center; gap: 15px; margin-bottom: 30px; max-width: 500px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .search-result { margin-bottom: 25px; }
+        .search-mockup { background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 15px 25px; display: flex; align-items: center; gap: 15px; margin-bottom: 20px; max-width: 500px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .search-result { margin-bottom: 20px; }
         .search-result .url { color: #202124; font-size: 14px; margin-bottom: 4px; }
         .search-result .title { color: #1a0dab; font-size: 20px; text-decoration: none; display: block; margin-bottom: 4px; }
-        .search-result .desc { color: #4d5156; font-size: 14px; line-height: 1.5; }
+        .search-result .desc { color: #4d5156; font-size: 13px; line-height: 1.5; }
 
+        .pillar-tag { font-size: 11px; font-weight: 700; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 4px; display: block; }
     </style>
 </head>
 <body>
 
-    <div class="nav-dots">
+    <div class="nav-dots" id="dotsContainer">
         <div class="dot active"></div>
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="nav-arrows">
+        <button class="nav-btn" id="prevBtn" title="Previous Slide"><i class="fa-solid fa-arrow-up"></i></button>
+        <button class="nav-btn" id="nextBtn" title="Next Slide"><i class="fa-solid fa-arrow-down"></i></button>
     </div>
 
     <div class="snap-container" id="scroller">
@@ -126,7 +143,7 @@
                     </div>
                     <div class="sidebar-main">
                         <span class="phase-tag">Strategic Roadmap</span>
-                        <p style="font-size: 14px; line-height: 1.6; opacity: 0.8;">A comprehensive 90-day blueprint for Search Dominance and Digital Footprint Control.</p>
+                        <p style="font-size: 14px; line-height: 1.6; opacity: 0.8;">3-Month Facebook Content Plan & Search Dominance Framework.</p>
                     </div>
                     <div class="sidebar-footer">ONE VOICE CAMBODIA © 2026</div>
                 </div>
@@ -135,192 +152,247 @@
                     <div class="slide-num">01</div>
                     <p style="text-transform: uppercase; letter-spacing: 2px; color: var(--accent-gold); font-weight: 700; margin-bottom: 10px;">Digital Visibility Strategy</p>
                     <h1>ONE VOICE</h1>
-                    <h2 style="border: none; color: var(--text-muted); font-weight: 400; font-size: 28px;">Search Dominance + Facebook Brand Framework</h2>
+                    <h2 style="border: none; color: var(--text-muted); font-weight: 400; font-size: 28px;">Official Portal: <span style="color:var(--accent-gold)">1voice.art</span></h2>
                     <div style="margin-top: 50px;" class="objective-box">
-                        <p><strong>Primary Goal:</strong> When someone searches for "ONE VOICE Cambodia" or "សម្លេងខ្មែរតែមួយ", they find an authoritative digital entity with structured cultural leadership.</p>
+                        <p><strong>Primary Goal:</strong> Shift perception from a "project" to a "national movement" through structured content pillars and search-optimized presence.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: Category Structure -->
+        <!-- Slide 2: Content Pillars & Weighting -->
         <section id="s2">
             <div class="slide-card">
                 <div class="sidebar">
                     <div class="sidebar-header">
-                        <span class="phase-tag">Master Categories</span>
-                        <h3>Framework</h3>
+                        <span class="phase-tag">Core Model</span>
+                        <h3>5 Pillars</h3>
                     </div>
-                    <div class="sidebar-footer">Content Distribution Strategy</div>
+                    <div class="sidebar-footer">Content Weighting Strategy</div>
                 </div>
                 <div class="content">
                     <div class="slide-num">02</div>
-                    <h2><i class="fa-solid fa-layer-group"></i> Master Category Structure</h2>
-                    <div class="task-grid" style="margin-top: 20px;">
+                    <h2><i class="fa-solid fa-layer-group"></i> Content Structure Model</h2>
+                    <div class="task-grid" style="margin-top: 10px;">
                         <div class="task-item">
-                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
-                                Brand Identity <span class="weight-badge">35%</span>
-                            </h4>
-                            <p style="font-size: 13px; color: var(--text-muted);">Mission, Vision, official slogans, and pinned authority posts.</p>
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">Brand & Identity <span class="weight-badge">30%</span></h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">Establish official status, mission, vision, and slogan authority.</p>
                         </div>
                         <div class="task-item">
-                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
-                                Leadership Authority <span class="weight-badge">25%</span>
-                            </h4>
-                            <p style="font-size: 13px; color: var(--text-muted);">Founder intros, artistic credentials, and professional advisory roles.</p>
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">Cultural Heritage <span class="weight-badge">25%</span></h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">Sacred land concept, temple locations, and national identity.</p>
                         </div>
                         <div class="task-item">
-                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
-                                Cultural Heritage <span class="weight-badge">25%</span>
-                            </h4>
-                            <p style="font-size: 13px; color: var(--text-muted);">Temple locations, sacred land narratives, and national identity.</p>
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">Leadership <span class="weight-badge">20%</span></h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">Founders, artistic credentials, and professional credibility.</p>
                         </div>
                         <div class="task-item">
-                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
-                                Institutional <span class="weight-badge">15%</span>
-                            </h4>
-                            <p style="font-size: 13px; color: var(--text-muted);">Partnerships, official collaborations, and organized structure.</p>
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">Production <span class="weight-badge">15%</span></h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">Film progress, behind-the-scenes, and rehearsal milestones.</p>
+                        </div>
+                        <div class="task-item" style="grid-column: span 2;">
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">Institutional & Partnership <span class="weight-badge">10%</span></h4>
+                            <p style="font-size: 12px; color: var(--text-muted);">Official collaborations, alignment with ministries, and network scale.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 3: Tone & Language -->
+        <!-- Slide 3: Month 1 Foundation -->
         <section id="s3">
             <div class="slide-card">
                 <div class="sidebar">
                     <div class="sidebar-header">
-                        <span class="phase-tag">Brand Governance</span>
-                        <h3>Voice & Tone</h3>
+                        <span class="phase-tag">Month 1</span>
+                        <h3>Foundation</h3>
                     </div>
-                    <div class="sidebar-footer">Institutional Consistency</div>
+                    <div class="sidebar-footer">Establishing Identity</div>
                 </div>
                 <div class="content">
                     <div class="slide-num">03</div>
-                    <h2><i class="fa-solid fa-comment-dots"></i> Messaging Protocol</h2>
+                    <h2><i class="fa-solid fa-building-columns"></i> Brand & Credibility Phase</h2>
                     <div class="task-grid">
                         <div class="task-item">
-                            <h4>Tone of Voice</h4>
+                            <span class="pillar-tag">Week 1-2</span>
                             <ul style="list-style: none; padding: 0;">
-                                <li style="margin-bottom: 8px;"><strong style="color: var(--accent-primary);">Brand:</strong> Dignified, Official</li>
-                                <li style="margin-bottom: 8px;"><strong style="color: var(--accent-primary);">Leadership:</strong> Credible, Professional</li>
-                                <li style="margin-bottom: 8px;"><strong style="color: var(--accent-primary);">Heritage:</strong> Calm, Reflective</li>
-                                <li><strong style="color: var(--accent-primary);">Partnership:</strong> Formal, Structured</li>
+                                <li>• Official Intro: ONE VOICE</li>
+                                <li>• Vision & Mission Breakdown</li>
+                                <li>• <strong>1voice.art</strong> Launch</li>
+                                <li>• Historical Context (Garuda)</li>
+                                <li>• Founder Introduction</li>
                             </ul>
                         </div>
-                        <div class="task-item" style="background: #fff5f5;">
-                            <h4 style="color: #c53030;"><i class="fa-solid fa-circle-xmark"></i> Avoid:</h4>
-                            <ul style="color: #c53030; list-style: none; padding-left: 0;">
-                                <li>- Emotional Activism</li>
-                                <li>- Political Debate</li>
-                                <li>- Aggressive Messaging</li>
+                        <div class="task-item">
+                            <span class="pillar-tag">Week 3-4</span>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Slogan: "We Rise With Dignity"</li>
+                                <li>• Sacred Land: Koh Ker Spotlight</li>
+                                <li>• Why Art Matters Message</li>
+                                <li>• Team Structure Overview</li>
+                                <li>• 30-Day Foundation Recap</li>
                             </ul>
                         </div>
                     </div>
-                    <div class="objective-box" style="margin-top: 30px;">
-                        <p><strong>Language Strategy:</strong> Bilingual (Khmer/English) structure for every post to maximize search indexing and international positioning.</p>
+                    <div class="objective-box" style="margin-top: 20px;">
+                        <p><strong>Outcome:</strong> A strong, searchable archive that proves ONE VOICE is a formal entity.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 4: Weekly Operation -->
+        <!-- Slide 4: Month 2 Visual Strength -->
         <section id="s4">
             <div class="slide-card">
                 <div class="sidebar">
                     <div class="sidebar-header">
-                        <span class="phase-tag">Operation</span>
-                        <h3>Rhythm</h3>
+                        <span class="phase-tag">Month 2</span>
+                        <h3>Authority</h3>
                     </div>
-                    <div class="sidebar-footer">Consistent Visibility</div>
+                    <div class="sidebar-footer">Visual & Artistic Power</div>
                 </div>
                 <div class="content">
                     <div class="slide-num">04</div>
-                    <h2><i class="fa-solid fa-calendar-check"></i> Weekly Framework</h2>
-                    <p style="margin-bottom: 20px; color: var(--text-muted);">Consistency > Volume. Every week must follow this authority build:</p>
+                    <h2><i class="fa-solid fa-palette"></i> Visual Strength Phase</h2>
                     <div class="task-grid">
                         <div class="task-item">
-                            <h4 style="color: var(--accent-gold);">1. Brand Authority Post</h4>
-                            <p style="font-size: 14px;">Focus on Mission/Vision and Website connection.</p>
+                            <span class="pillar-tag">Heritage & Leadership</span>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Temple Spotlight: Phnom Chiso</li>
+                                <li>• Lead Art Photographer Profile</li>
+                                <li>• Music Director Introduction</li>
+                                <li>• Symbolism of Khmer Peace Art</li>
+                            </ul>
                         </div>
                         <div class="task-item">
-                            <h4 style="color: var(--accent-gold);">2. Cultural Authority Post</h4>
-                            <p style="font-size: 14px;">Focus on Leadership or Sacred Heritage sites.</p>
+                            <span class="pillar-tag">Production Progress</span>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Film Milestone Update</li>
+                                <li>• Behind-the-scenes Rehearsal</li>
+                                <li>• Advisor Spotlight (Cultural Expert)</li>
+                                <li>• Website Blog Article Highlights</li>
+                            </ul>
                         </div>
-                        <div class="task-item">
-                            <h4 style="color: var(--accent-gold);">3. Institutional Update</h4>
-                            <p style="font-size: 14px;">Partnerships or Project milestones (Film production).</p>
-                        </div>
-                        <div class="task-item">
-                            <h4 style="color: var(--accent-gold);">4. SEO Keyword Loop</h4>
-                            <p style="font-size: 14px;">Ensure "ONE VOICE Cambodia" & "សម្លេងខ្មែរតែមួយ" in every caption.</p>
-                        </div>
+                    </div>
+                    <div class="objective-box" style="margin-top: 20px;">
+                        <p><strong>Outcome:</strong> Page looks active and structured, building high artistic credibility.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 5: Governance -->
+        <!-- Slide 5: Month 3 Scaling -->
         <section id="s5">
             <div class="slide-card">
                 <div class="sidebar">
                     <div class="sidebar-header">
-                        <span class="phase-tag">Risk Control</span>
-                        <h3>Governance</h3>
+                        <span class="phase-tag">Month 3</span>
+                        <h3>Movement</h3>
                     </div>
-                    <div class="sidebar-footer">Brand Integrity</div>
+                    <div class="sidebar-footer">Institutional Positioning</div>
                 </div>
                 <div class="content">
                     <div class="slide-num">05</div>
-                    <h2><i class="fa-solid fa-shield-halved"></i> Brand Protection</h2>
-                    <div class="task-grid" style="margin-top: 20px;">
-                        <div class="task-item" style="grid-column: span 2;">
-                            <h4>Platform Governance</h4>
-                            <ul style="font-size: 16px;">
-                                <li><strong>Approval Workflow:</strong> Content must pass leadership review.</li>
-                                <li><strong>Crisis Protocol:</strong> Defined response for misinformation.</li>
-                                <li><strong>Album Structure:</strong> Organized into: About, Leadership, Temple Locations, Press.</li>
-                                <li><strong>Visual Guide:</strong> Strict logo placement and color palette rules.</li>
+                    <h2><i class="fa-solid fa-earth-asia"></i> Legitimacy & Scale Phase</h2>
+                    <div class="task-grid">
+                        <div class="task-item">
+                            <span class="pillar-tag">Partnerships</span>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Institutional Alignment Message</li>
+                                <li>• Partnership Network Highlights</li>
+                                <li>• Media Coverage & Press Links</li>
+                                <li>• Cultural Unity Impact Narrative</li>
                             </ul>
                         </div>
+                        <div class="task-item">
+                            <span class="pillar-tag">Future Phase</span>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>• Project Roadmap Explanation</li>
+                                <li>• Exhibition Phase Teaser</li>
+                                <li>• 3-Month Recap: The Movement</li>
+                                <li>• Call to Action: Follow 1voice.art</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="objective-box" style="margin-top: 20px;">
+                        <p><strong>Outcome:</strong> Perception shifts from a "singular project" to a "lasting national movement".</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 6: Result -->
+        <!-- Slide 6: Mandatory Standards -->
         <section id="s6">
             <div class="slide-card">
                 <div class="sidebar">
                     <div class="sidebar-header">
-                        <span class="phase-tag">The Outcome</span>
-                        <h3>90-Day Vision</h3>
+                        <span class="phase-tag">Standards</span>
+                        <h3>Execution</h3>
                     </div>
-                    <div class="sidebar-footer">Search Dominance Achievement</div>
+                    <div class="sidebar-footer">Quality Assurance</div>
                 </div>
                 <div class="content">
                     <div class="slide-num">06</div>
-                    <h2>Achieved: Brand Dominance</h2>
+                    <h2><i class="fa-solid fa-list-check"></i> Mandatory Post Standards</h2>
+                    <div class="task-grid">
+                        <div class="task-item">
+                            <h4>Format Mix</h4>
+                            <ul style="font-size: 14px;">
+                                <li><strong>50%</strong> High-quality Still Images</li>
+                                <li><strong>25%</strong> Short Video Clips (< 60s)</li>
+                                <li><strong>15%</strong> Educational Infographics</li>
+                                <li><strong>10%</strong> Website/Link Updates</li>
+                            </ul>
+                        </div>
+                        <div class="task-item">
+                            <h4>SEO Checklist (Every Post)</h4>
+                            <ul style="font-size: 14px;">
+                                <li>• ONE VOICE Cambodia (English)</li>
+                                <li>• សម្លេងខ្មែរតែមួយ (Khmer)</li>
+                                <li>• Link to <strong>1voice.art</strong> (Min 1x/wk)</li>
+                                <li>• Institutional & Dignified Tone</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="objective-box" style="margin-top: 25px;">
+                        <p><strong>Workflow:</strong> Mon: Approve | Wed/Fri/Sun: Publish | Monthly: Review Consistency.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Search Result Preview -->
+        <section id="s7">
+            <div class="slide-card">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <span class="phase-tag">The Result</span>
+                        <h3>Search View</h3>
+                    </div>
+                    <div class="sidebar-footer">Projected Search Presence</div>
+                </div>
+                <div class="content">
+                    <div class="slide-num">07</div>
+                    <h2>Achieved: Digital Authority</h2>
                     <div class="search-mockup">
                         <i class="fa-solid fa-magnifying-glass" style="color: #9aa0a6;"></i>
                         <span>ONE VOICE Cambodia</span>
                     </div>
                     
                     <div class="search-result">
-                        <div class="url">https://www.onevoicekh.org</div>
-                        <a href="#" class="title">ONE VOICE | The Official National Peace Art Movement</a>
-                        <div class="desc">Bilingual portal for the movement led by cultural experts. Discover the mission of artistic dignity across Cambodia's sacred land...</div>
+                        <div class="url">https://www.1voice.art</div>
+                        <a href="#" class="title">ONE VOICE | National Peace Art Movement Cambodia</a>
+                        <div class="desc">Official website for សម្លេងខ្មែរតែមួយ. Explore our mission of dignity through artistic performance, sacred land preservation, and cinema...</div>
                     </div>
 
                     <div class="search-result">
                         <div class="url">https://facebook.com › onevoicekh</div>
                         <a href="#" class="title">ONE VOICE - សម្លេងខ្មែរតែមួយ | Official Page</a>
-                        <div class="desc">National artistic movement protecting cultural roots and promoting peace through cinema and performance rituals. Structured Archive...</div>
+                        <div class="desc">The official digital archive of the movement. Content Pillars: Cultural Heritage, Artistic Leadership, and National Identity...</div>
                     </div>
                     
                     <div class="objective-box" style="margin-top: auto;">
-                        <p style="text-align: center;"><strong>Expected Outcome:</strong> Professional presentation, recognizable identity, and search dominance.</p>
+                        <p style="text-align: center;"><strong>Expected Outcome:</strong> Total brand dominance for English and Khmer search queries.</p>
                     </div>
                 </div>
             </div>
@@ -332,21 +404,63 @@
         const container = document.getElementById('scroller');
         const dots = document.querySelectorAll('.dot');
         const sections = document.querySelectorAll('section');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        let currentIndex = 0;
 
+        // Function to scroll to specific index
+        const scrollToSlide = (index) => {
+            if (index < 0 || index >= sections.length) return;
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+            currentIndex = index;
+            updateUI();
+        };
+
+        // Update active dots and button states
+        const updateUI = () => {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === sections.length - 1;
+        };
+
+        // Scroll listener to update UI on manual scroll/snap
         container.addEventListener('scroll', () => {
             let current = 0;
             sections.forEach((section, index) => {
-                const sectionTop = section.offsetTop;
-                if (container.scrollTop >= (sectionTop - section.clientHeight / 2)) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= -window.innerHeight / 2 && rect.top <= window.innerHeight / 2) {
                     current = index;
                 }
             });
-
-            dots.forEach((dot, index) => {
-                dot.classList.remove('active');
-                if (index === current) dot.classList.add('active');
-            });
+            if (currentIndex !== current) {
+                currentIndex = current;
+                updateUI();
+            }
         });
+
+        // Click on dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => scrollToSlide(index));
+        });
+
+        // Click on arrows
+        prevBtn.addEventListener('click', () => scrollToSlide(currentIndex - 1));
+        nextBtn.addEventListener('click', () => scrollToSlide(currentIndex + 1));
+
+        // Keyboard navigation
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                scrollToSlide(currentIndex - 1);
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                scrollToSlide(currentIndex + 1);
+            }
+        });
+
+        // Initial UI Update
+        updateUI();
     </script>
 </body>
 </html>
