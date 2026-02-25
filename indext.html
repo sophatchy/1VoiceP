@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ONE VOICE - Digital Visibility Strategy</title>
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --sidebar-bg: #f8fafc;
+            --accent-primary: #0f172a; 
+            --accent-gold: #d4af37; 
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --font-main: 'Kantumruy Pro', 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--sidebar-bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .snap-container { 
+            height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; 
+            scroll-behavior: smooth; scrollbar-width: none;
+        }
+        .snap-container::-webkit-scrollbar { display: none; }
+
+        section { 
+            height: 100vh; width: 100vw; scroll-snap-align: start;
+            display: flex; align-items: center; justify-content: center; padding: 40px; 
+        }
+        
+        .slide-card { 
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 1280px; height: 720px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            background: var(--accent-primary);
+            color: #fff;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .sidebar-logo { width: 100px; margin-bottom: 20px; filter: brightness(0) invert(1); }
+        .sidebar-footer { font-size: 12px; opacity: 0.5; letter-spacing: 1px; }
+        .phase-tag { font-size: 14px; color: var(--accent-gold); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+        /* --- CONTENT AREA --- */
+        .content { padding: 60px; display: flex; flex-direction: column; position: relative; }
+        .logo-watermark { position: absolute; top: 40px; right: 120px; width: 80px; opacity: 0.8; }
+        .slide-num { position: absolute; top: 40px; right: 40px; font-weight: 800; color: var(--border-color); font-size: 48px; }
+
+        h1 { font-size: 56px; font-weight: 700; color: var(--accent-primary); line-height: 1.1; margin-bottom: 10px; }
+        h2 { font-size: 32px; font-weight: 700; margin-bottom: 24px; color: var(--accent-primary); display: flex; align-items: center; gap: 15px; }
+        h2 i { color: var(--accent-gold); font-size: 28px; }
+        
+        .objective-box { background: #f1f5f9; padding: 25px; border-radius: 8px; border-left: 4px solid var(--accent-gold); margin-bottom: 30px; }
+        
+        .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .task-item { border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; }
+        .task-item h4 { font-size: 18px; margin-bottom: 10px; color: var(--accent-primary); display: flex; align-items: center; gap: 8px; }
+        .task-item ul { padding-left: 20px; font-size: 15px; color: var(--text-muted); }
+        .task-item li { margin-bottom: 5px; }
+
+        .weight-badge { display: inline-block; background: var(--accent-primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-left: auto; }
+
+        /* --- DOCK --- */
+        .nav-dots { position: fixed; right: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent-primary); transition: 0.3s; }
+        .dot.active { background: var(--accent-gold); border-color: var(--accent-gold); transform: scale(1.3); }
+
+        /* --- SEARCH MOCKUP --- */
+        .search-mockup { background: #fff; border: 1px solid #dfe1e5; border-radius: 24px; padding: 15px 25px; display: flex; align-items: center; gap: 15px; margin-bottom: 30px; max-width: 500px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .search-result { margin-bottom: 25px; }
+        .search-result .url { color: #202124; font-size: 14px; margin-bottom: 4px; }
+        .search-result .title { color: #1a0dab; font-size: 20px; text-decoration: none; display: block; margin-bottom: 4px; }
+        .search-result .desc { color: #4d5156; font-size: 14px; line-height: 1.5; }
+
+    </style>
+</head>
+<body>
+
+    <div class="nav-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="snap-container" id="scroller">
+        
+        <!-- Slide 1: Title -->
+        <section id="s1">
+            <div class="slide-card">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <img src="https://sophatchy.com/wp-content/uploads/2026/02/Logo-One-Voice-Website-01.png" class="sidebar-logo" alt="ONE VOICE">
+                    </div>
+                    <div class="sidebar-main">
+                        <span class="phase-tag">Strategic Roadmap</span>
+                        <p style="font-size: 14px; line-height: 1.6; opacity: 0.8;">A comprehensive 90-day blueprint for Search Dominance and Digital Footprint Control.</p>
+                    </div>
+                    <div class="sidebar-footer">ONE VOICE CAMBODIA © 2026</div>
+                </div>
+                <div class="content">
+                    <img src="https://sophatchy.com/wp-content/uploads/2026/02/Logo-One-Voice-Website-01.png" class="logo-watermark" alt="Logo">
+                    <div class="slide-num">01</div>
+                    <p style="text-transform: uppercase; letter-spacing: 2px; color: var(--accent-gold); font-weight: 700; margin-bottom: 10px;">Digital Visibility Strategy</p>
+                    <h1>ONE VOICE</h1>
+                    <h2 style="border: none; color: var(--text-muted); font-weight: 400; font-size: 28px;">Search Dominance + Facebook Brand Framework</h2>
+                    <div style="margin-top: 50px;" class="objective-box">
+                        <p><strong>Primary Goal:</strong> When someone searches for "ONE VOICE Cambodia" or "សម្លេងខ្មែរតែមួយ", they find an authoritative digital entity with structured cultural leadership.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Category Structure -->
+        <section id="s2">
+            <div class="slide-card">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <span class="phase-tag">Master Categories</span>
+                        <h3>Framework</h3>
+                    </div>
+                    <div class="sidebar-footer">Content Distribution Strategy</div>
+                </div>
+                <div class="content">
+                    <div class="slide-num">02</div>
+                    <h2><i class="fa-solid fa-layer-group"></i> Master Category Structure</h2>
+                    <div class="task-grid" style="margin-top: 20px;">
+                        <div class="task-item">
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
+                                Brand Identity <span class="weight-badge">35%</span>
+                            </h4>
+                            <p style="font-size: 13px; color: var(--text-muted);">Mission, Vision, official slogans, and pinned authority posts.</p>
+                        </div>
+                        <div class="task-item">
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
+                                Leadership Authority <span class="weight-badge">25%</span>
+                            </h4>
+                            <p style="font-size: 13px; color: var(--text-muted);">Founder intros, artistic credentials, and professional advisory roles.</p>
+                        </div>
+                        <div class="task-item">
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
+                                Cultural Heritage <span class="weight-badge">25%</span>
+                            </h4>
+                            <p style="font-size: 13px; color: var(--text-muted);">Temple locations, sacred land narratives, and national identity.</p>
+                        </div>
+                        <div class="task-item">
+                            <h4 style="display: flex; justify-content: space-between; width: 100%;">
+                                Institutional <span class="weight-badge">15%</span>
+                            </h4>
+                            <p style="font-size: 13px; color: var(--text-muted);">Partnerships, official collaborations, and organized structure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tone & Language -->
+        <section id="s3">
+            <div class="slide-card">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <span class="phase-tag">Brand Governance</span>
+                        <h3>Voice & Tone</h3>
+                    </div>
+                    <div class="sidebar-footer">Institutional Consistency</div>
+                </div>
+                <div class="content">
+                    <div class="slide-num">03</div>
+                    <h2><i class="fa-solid fa-comment-dots"></i> Messaging Protocol</h2>
+                    <div class="task-grid">
+                        <div class="task-item">
+                            <h4>Tone of Voice</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 8px;"><strong style="color: var(--accent-primary);">Brand:</strong> Dignified, Official</li>
+                                <li style="margin-bottom: 8px;"><strong style="color: var(--accent-primary);">Leadership:</strong> Credible, Professional</li>
+                                <li style="margin-bottom: 8px;"><strong style="color: var(--accent-primary);">Heritage:</strong> Calm, Reflective</li>
+                                <li><strong style="color: var(--accent-primary);">Partnership:</strong> Formal, Structured</li>
+                            </ul>
+                        </div>
+                        <div class="task-item" style="background: #fff5f5;">
+                            <h4 style="color: #c53030;"><i class="fa-solid fa-circle-xmark"></i> Avoid:</h4>
+                            <ul style="color: #c53030; list-style: none; padding-left: 0;">
+                                <li>- Emotional Activism</li>
+                                <li>- Political Debate</li>
+                                <li>- Aggressive Messaging</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="objective-box" style="margin-top: 30px;">
+                        <p><strong>Language Strategy:</strong> Bilingual (Khmer/English) structure for every post to maximize search indexing and international positioning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Weekly Operation -->
+        <section id="s4">
+            <div class="slide-card">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <span class="phase-tag">Operation</span>
+                        <h3>Rhythm</h3>
+                    </div>
+                    <div class="sidebar-footer">Consistent Visibility</div>
+                </div>
+                <div class="content">
+                    <div class="slide-num">04</div>
+                    <h2><i class="fa-solid fa-calendar-check"></i> Weekly Framework</h2>
+                    <p style="margin-bottom: 20px; color: var(--text-muted);">Consistency > Volume. Every week must follow this authority build:</p>
+                    <div class="task-grid">
+                        <div class="task-item">
+                            <h4 style="color: var(--accent-gold);">1. Brand Authority Post</h4>
+                            <p style="font-size: 14px;">Focus on Mission/Vision and Website connection.</p>
+                        </div>
+                        <div class="task-item">
+                            <h4 style="color: var(--accent-gold);">2. Cultural Authority Post</h4>
+                            <p style="font-size: 14px;">Focus on Leadership or Sacred Heritage sites.</p>
+                        </div>
+                        <div class="task-item">
+                            <h4 style="color: var(--accent-gold);">3. Institutional Update</h4>
+                            <p style="font-size: 14px;">Partnerships or Project milestones (Film production).</p>
+                        </div>
+                        <div class="task-item">
+                            <h4 style="color: var(--accent-gold);">4. SEO Keyword Loop</h4>
+                            <p style="font-size: 14px;">Ensure "ONE VOICE Cambodia" & "សម្លេងខ្មែរតែមួយ" in every caption.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Governance -->
+        <section id="s5">
+            <div class="slide-card">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <span class="phase-tag">Risk Control</span>
+                        <h3>Governance</h3>
+                    </div>
+                    <div class="sidebar-footer">Brand Integrity</div>
+                </div>
+                <div class="content">
+                    <div class="slide-num">05</div>
+                    <h2><i class="fa-solid fa-shield-halved"></i> Brand Protection</h2>
+                    <div class="task-grid" style="margin-top: 20px;">
+                        <div class="task-item" style="grid-column: span 2;">
+                            <h4>Platform Governance</h4>
+                            <ul style="font-size: 16px;">
+                                <li><strong>Approval Workflow:</strong> Content must pass leadership review.</li>
+                                <li><strong>Crisis Protocol:</strong> Defined response for misinformation.</li>
+                                <li><strong>Album Structure:</strong> Organized into: About, Leadership, Temple Locations, Press.</li>
+                                <li><strong>Visual Guide:</strong> Strict logo placement and color palette rules.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Result -->
+        <section id="s6">
+            <div class="slide-card">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <span class="phase-tag">The Outcome</span>
+                        <h3>90-Day Vision</h3>
+                    </div>
+                    <div class="sidebar-footer">Search Dominance Achievement</div>
+                </div>
+                <div class="content">
+                    <div class="slide-num">06</div>
+                    <h2>Achieved: Brand Dominance</h2>
+                    <div class="search-mockup">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #9aa0a6;"></i>
+                        <span>ONE VOICE Cambodia</span>
+                    </div>
+                    
+                    <div class="search-result">
+                        <div class="url">https://www.onevoicekh.org</div>
+                        <a href="#" class="title">ONE VOICE | The Official National Peace Art Movement</a>
+                        <div class="desc">Bilingual portal for the movement led by cultural experts. Discover the mission of artistic dignity across Cambodia's sacred land...</div>
+                    </div>
+
+                    <div class="search-result">
+                        <div class="url">https://facebook.com › onevoicekh</div>
+                        <a href="#" class="title">ONE VOICE - សម្លេងខ្មែរតែមួយ | Official Page</a>
+                        <div class="desc">National artistic movement protecting cultural roots and promoting peace through cinema and performance rituals. Structured Archive...</div>
+                    </div>
+                    
+                    <div class="objective-box" style="margin-top: auto;">
+                        <p style="text-align: center;"><strong>Expected Outcome:</strong> Professional presentation, recognizable identity, and search dominance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const container = document.getElementById('scroller');
+        const dots = document.querySelectorAll('.dot');
+        const sections = document.querySelectorAll('section');
+
+        container.addEventListener('scroll', () => {
+            let current = 0;
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                if (container.scrollTop >= (sectionTop - section.clientHeight / 2)) {
+                    current = index;
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === current) dot.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
